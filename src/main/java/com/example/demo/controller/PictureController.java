@@ -18,6 +18,7 @@ import com.example.demo.dto.MessageDto;
 import com.example.demo.dto.PictureDto;
 import com.example.demo.dto.PictureReqDto;
 import com.example.demo.dto.ResponseDto;
+import com.example.demo.exceptions.ShopIsFullException;
 import com.example.demo.exceptions.ShopNotFoundException;
 import com.example.demo.map.PictureMapper;
 import com.example.demo.repository.IPicturesRepository;
@@ -47,6 +48,8 @@ public class PictureController {
 			return new ResponseEntity<>(picService.create(data, shopId), HttpStatus.OK);
 		} catch (ShopNotFoundException e) {
 			return new ResponseEntity<>(new MessageDto("La botiga no existeix"), HttpStatus.BAD_REQUEST);
+		} catch (ShopIsFullException e2) {
+			return new ResponseEntity<>(new MessageDto(e2.getMessage()), HttpStatus.BAD_REQUEST);
 		}
     }
     

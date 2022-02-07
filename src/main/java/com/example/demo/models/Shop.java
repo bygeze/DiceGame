@@ -97,5 +97,8 @@ public class Shop {
 		this.capacitat = capacitat;
 	}
 	
+	public List<Picture> getPictures() {
+		return pictures;
+	}
 	
 }
