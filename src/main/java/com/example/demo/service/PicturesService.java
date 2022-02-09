@@ -32,8 +32,10 @@ public class PicturesService implements IPicturesService {
 	public PictureDto create(PictureReqDto data, Long shopId) throws ShopNotFoundException, ShopIsFullException {
 		Shop shop = findShop(shopId);
 		
-		if(shop.getPictures().size() >= shop.getCapacitat()) {
-			throw new ShopIsFullException("Shop is full");
+		int size = shop.getPictures().size();
+		
+		if(size >= shop.getCapacitat()) {
+			throw new ShopIsFullException("Shop is full: " + size + "/" + size);
 		}
 		
 		PictureDto temp = new PictureDto();

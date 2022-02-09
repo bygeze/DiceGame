@@ -20,40 +20,41 @@ import com.example.demo.dto.PictureReqDto;
 import com.example.demo.dto.ResponseDto;
 import com.example.demo.exceptions.ShopIsFullException;
 import com.example.demo.exceptions.ShopNotFoundException;
-import com.example.demo.map.PictureMapper;
-import com.example.demo.repository.IPicturesRepository;
 import com.example.demo.service.IPicturesService;
-import com.example.demo.service.IShopService;
 
 @RestController
 @RequestMapping("/shops")
 public class PictureController {
 	private final IPicturesService picService;
-	private final IShopService shopService;
+	
+	/* inyectar las dependencias por el constructor es mejor para TDD.
+	 * recordatorio: mirar lombok.
+	 */
 	
 	@Autowired
-	public PictureController(IPicturesService picService, IShopService shopService) {
+	public PictureController(IPicturesService picService) {
 		this.picService = picService;
-		this.shopService = shopService;
 	}
 	
-    /* create picture */
+    /* CREATE PICTURE IN SHOP */
     @PostMapping("/{id}/pictures")
     public ResponseEntity<ResponseDto> create(@PathVariable("id") Long shopId, @RequestBody PictureReqDto data) {
-    	if(data.title == null || data.author == null || data.price == null) {
-    		return new ResponseEntity<>(new MessageDto("La data que has introduit no es correcta"), HttpStatus.BAD_REQUEST);
+    	if(data.title == null || data.price == null) {
+    		return new ResponseEntity<>(
+    				new MessageDto("La data que has introduit no es correcta"), 
+    				HttpStatus.BAD_REQUEST);
     	}
     	
     	try {
 			return new ResponseEntity<>(picService.create(data, shopId), HttpStatus.OK);
-		} catch (ShopNotFoundException e) {
-			return new ResponseEntity<>(new MessageDto("La botiga no existeix"), HttpStatus.BAD_REQUEST);
+		} catch (ShopNotFoundException e1) {
+			return new ResponseEntity<>(new MessageDto(e1.getMessage()), HttpStatus.BAD_REQUEST);
 		} catch (ShopIsFullException e2) {
 			return new ResponseEntity<>(new MessageDto(e2.getMessage()), HttpStatus.BAD_REQUEST);
 		}
     }
     
-    
+    /* FIND ALL PICTURES FROM SHOP */
     @GetMapping("/{id}/pictures")
     public ResponseEntity<List<PictureDto>> findAll(@PathVariable("id") Long shopId) {
     	List<PictureDto> list = new ArrayList<>();
@@ -66,6 +67,7 @@ public class PictureController {
 		}
     }
     
+    /* BURN ALL PICTURES FROM SHOP */
 	@DeleteMapping("/{id}/pictures")
 	public ResponseEntity<MessageDto> burn(@PathVariable("id") Long shopId) {
 		try {
@@ -73,7 +75,7 @@ public class PictureController {
 			return new ResponseEntity<>(new MessageDto(num.toString()), HttpStatus.OK);
 		} catch (ShopNotFoundException e) {
 			// TODO Auto-generated catch block
-			return new ResponseEntity<>(new MessageDto("La botiga no existeix"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new MessageDto(e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
 		
 	}

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,13 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.MessageDto;
 import com.example.demo.dto.ResponseDto;
 import com.example.demo.dto.ShopDto;
-import com.example.demo.map.ShopMapper;
 import com.example.demo.service.IShopService;
 
 @RestController
 @RequestMapping("/shops")
 public class ShopController {
-	
 	 private final IShopService shopService;
 	 
 	 @Autowired
@@ -29,13 +26,13 @@ public class ShopController {
 		 this.shopService = shopService;
 	 }
 	
-	/* get all shops */
+	/* FIND ALL SHOPS */
 	@GetMapping
-	public ResponseEntity<List<? extends ResponseDto>> findAll() {
+	public ResponseEntity<List<ResponseDto>> findAll() {
 		return new ResponseEntity<>(shopService.findAll(), HttpStatus.OK);
 	}
 	
-	/* create shop */
+	/* CREATE SHOP */
     @PostMapping
     public ResponseEntity<ResponseDto> create(@RequestBody ShopDto dto) {
     	/* podria validar mas con regex

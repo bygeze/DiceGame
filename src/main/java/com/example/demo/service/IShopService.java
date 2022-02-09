@@ -7,6 +7,6 @@ import com.example.demo.dto.ShopDto;
 
 public interface IShopService {
 	public ResponseDto create(ShopDto data);
-	public List<ShopDto> findAll();
+	public List<ResponseDto> findAll();
 	public ShopDto findById(Long id);
 }

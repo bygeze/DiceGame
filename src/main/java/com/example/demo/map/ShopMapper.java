@@ -3,6 +3,7 @@ package com.example.demo.map;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.demo.dto.ResponseDto;
 import com.example.demo.dto.ShopDto;
 import com.example.demo.models.Shop;
 
@@ -28,8 +29,8 @@ public final class ShopMapper {
 		return temp;
 	}
 	
-	public static final List<ShopDto> shopToDto(Iterable<Shop> shopList) {
-		List<ShopDto> list = new ArrayList<ShopDto>();
+	public static final List<ResponseDto> shopToDto(Iterable<Shop> shopList) {
+		List<ResponseDto> list = new ArrayList<>();
 		
 		for(Shop elem : shopList) {
 			ShopDto dto = new ShopDto();

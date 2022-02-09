@@ -26,7 +26,7 @@ public class ShopService implements IShopService {
 		return ShopMapper.shopToDto(shopRepo.save(ShopMapper.shopToEntity(data)));	
 	}
 	
-	public List<ShopDto> findAll() {
+	public List<ResponseDto> findAll() {
 		return ShopMapper.shopToDto(shopRepo.findAll());
 	}
 	

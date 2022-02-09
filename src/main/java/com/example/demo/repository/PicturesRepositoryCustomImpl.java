@@ -40,3 +40,5 @@ public class PicturesRepositoryCustomImpl implements IPicturesRepositoryCustom {
 		return query.setParameter(1, shopId).executeUpdate();
 	}
 }
+
+
