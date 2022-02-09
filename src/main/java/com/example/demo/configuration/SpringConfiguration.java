@@ -1,4 +1,4 @@
-package com.example.demo.configuration;
+/*package com.example.demo.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ public class SpringConfiguration {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-    @Bean
+    @Bean	
     public ClientHttpRequestFactory getClientHttpRequestFactory() {
         SimpleClientHttpRequestFactory ret = new SimpleClientHttpRequestFactory();
         ret.setReadTimeout(10000); // 10 sec
@@ -32,3 +32,4 @@ public class SpringConfiguration {
     }
 
 }
+*/
