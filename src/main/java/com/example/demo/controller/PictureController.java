@@ -56,15 +56,26 @@ public class PictureController {
     
     /* FIND ALL PICTURES FROM SHOP */
     @GetMapping("/{id}/pictures")
-    public ResponseEntity<List<PictureDto>> findAll(@PathVariable("id") Long shopId) {
-    	List<PictureDto> list = new ArrayList<>();
+    public ResponseEntity<List<ResponseDto>> findAll(@PathVariable("id") Long shopId) {
+    	List<ResponseDto> list = new ArrayList<>();
+    	
+    	try {
+			list = picService.findAllByShop(shopId);
+		} catch (ShopNotFoundException e) {
+			// TODO Auto-generated catch block
+			list.add(new MessageDto(e.getMessage()));
+			return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
+		}
+		return ResponseEntity.ok(list);
+    	
+		/*
 		try {
-			list = picService.findAll(shopId);
+			list = picService.findAllByShop(shopId);
 			return ResponseEntity.ok(list);
 		} catch (ShopNotFoundException e) {
 			// TODO Auto-generated catch block
 			return new ResponseEntity<>(list, HttpStatus.NOT_FOUND);
-		}
+		}*/
     }
     
     /* BURN ALL PICTURES FROM SHOP */

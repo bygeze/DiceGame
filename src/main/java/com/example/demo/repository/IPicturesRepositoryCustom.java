@@ -1,4 +1,4 @@
-package com.example.demo.repository;
+/*package com.example.demo.repository;
 
 import java.util.List;
 
@@ -8,3 +8,5 @@ public interface IPicturesRepositoryCustom {
 	public List<Picture> findAllPicsByShopId(Long shopId);
 	public int deleteAllPicturesByShopId(Long shopId);
 }
+
+*/

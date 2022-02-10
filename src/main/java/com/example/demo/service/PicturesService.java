@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.PictureDto;
 import com.example.demo.dto.PictureReqDto;
+import com.example.demo.dto.ResponseDto;
 import com.example.demo.exceptions.ShopIsFullException;
 import com.example.demo.exceptions.ShopNotFoundException;
 import com.example.demo.map.PictureMapper;
@@ -48,18 +49,19 @@ public class PicturesService implements IPicturesService {
 				picRepo.save(PictureMapper.dtoToEntity(temp, shop)));
 	}
 	
-	public List<PictureDto> findAll(Long shopId) throws ShopNotFoundException {
+	public List<ResponseDto> findAll(Long shopId) throws ShopNotFoundException {
 		Shop shop = findShop(shopId);
 		
-		List<PictureDto> list = PictureMapper.entityToDto(picRepo.findAllPicsByShopId(shop.getId()));
+		List<ResponseDto> list = PictureMapper.entityToDto(picRepo.findByShop(shop));
 		
-		return list;
+		return (List<ResponseDto>) list;
 	}
 	
+	@Override
 	public int burn(Long shopId) throws ShopNotFoundException {
 		Shop shop = findShop(shopId);
 		
-		return picRepo.deleteAllPicturesByShopId(shopId);
+		return picRepo.deleteByShop(shop);
 	}
 	
 	private Shop findShop(long shopId) throws ShopNotFoundException {
@@ -70,7 +72,15 @@ public class PicturesService implements IPicturesService {
 		} else {
 			return shop.get();
 		}
+	}
+
+	@Override
+	public List<ResponseDto> findAllByShop(Long shopId) throws ShopNotFoundException {
+		Shop shop = findShop(shopId);
 		
+		List<ResponseDto> list = PictureMapper.entityToDto(picRepo.findByShop(shop));
 		
+		// TODO Auto-generated method stub
+		return list;
 	}
 }

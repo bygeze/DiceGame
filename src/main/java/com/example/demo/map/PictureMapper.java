@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.dto.PictureDto;
+import com.example.demo.dto.ResponseDto;
 import com.example.demo.dto.ShopDto;
 import com.example.demo.models.Picture;
 import com.example.demo.models.Shop;
@@ -33,8 +34,8 @@ public final class PictureMapper {
 		
 	}
 	
-	public static final List<PictureDto> entityToDto(List<Picture> pictureList) {
-		List<PictureDto> list = new ArrayList<PictureDto>();
+	public static final List<ResponseDto> entityToDto(List<Picture> pictureList) {
+		List<ResponseDto> list = new ArrayList<>();
 		
 		for(Picture elem : pictureList) {
 			PictureDto dto = new PictureDto();

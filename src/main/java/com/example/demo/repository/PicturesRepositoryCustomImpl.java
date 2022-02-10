@@ -1,4 +1,4 @@
-package com.example.demo.repository;
+/*package com.example.demo.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,4 +41,4 @@ public class PicturesRepositoryCustomImpl implements IPicturesRepositoryCustom {
 	}
 }
 
-
+*/
