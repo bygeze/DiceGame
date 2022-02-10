@@ -142,7 +142,7 @@ public class RepositoryUnitTests {
 		
 		entityManager.persist(pic1);
 		
-		List<Picture> pics = picRepository.findAllPicsByShopId(shop.get().getId());
+		List<Picture> pics = picRepository.findByShop(shop.get());
 		
 		assertThat(pics).hasSize(1);
 	}
@@ -161,15 +161,15 @@ public class RepositoryUnitTests {
 		Picture pic2 = new Picture("La obra", "Gustavo", 1200.0, new Date(), shop.get());
 		entityManager.persist(pic2);
 		
-		List<Picture> pics = picRepository.findAllPicsByShopId(shop.get().getId());
+		List<Picture> pics = picRepository.findByShop(shop.get());
 		
 		assertThat(pics).hasSize(2);
 		
-		int qDeletedElements = picRepository.deleteAllPicturesByShopId(shop.get().getId());
+		int qDeletedElements = picRepository.deleteByShop(shop.get());
 		
 		assertThat(qDeletedElements).isEqualTo(2);
 		
-		pics = picRepository.findAllPicsByShopId(shop.get().getId());
+		pics = picRepository.findByShop(shop.get());
 		
 		assertThat(pics).isEmpty();
 			

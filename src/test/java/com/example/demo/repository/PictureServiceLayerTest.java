@@ -20,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.dto.PictureDto;
 import com.example.demo.dto.PictureReqDto;
+import com.example.demo.dto.ResponseDto;
 import com.example.demo.exceptions.ShopNotFoundException;
 import com.example.demo.models.Picture;
 import com.example.demo.models.Shop;
@@ -70,9 +71,9 @@ public class PictureServiceLayerTest {
 		pics.add(new Picture("Obra 1", "Gustavo", 1200.0, new Date(), shop.get()));
 		pics.add(new Picture("Obra 2", "Gustavo", 1200.0, new Date(), shop.get()));
 		
-		when(picRepo.findAllPicsByShopId(shop.get().getId())).thenReturn(pics);
+		when(picRepo.findByShop(shop.get())).thenReturn(pics);
 		
-		List<PictureDto> picList = picService.findAll(shop.get().getId());
+		List<ResponseDto> picList = picService.findAll(shop.get().getId());
 		
 		assertThat(picList).hasSize(2);
 		assertThat(picList.get(1)).hasFieldOrPropertyWithValue("title", "Obra 2");
